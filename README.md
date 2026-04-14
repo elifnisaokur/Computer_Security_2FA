@@ -4,7 +4,7 @@ This project is a secure authentication system built with ASP.NET Core that impl
 
 The system combines traditional username/password login with an additional verification layer using a time-based one-time password (TOTP).
 
-##Features
+## Features
 - User Registration & Login
 - Password Hashing (secure storage)
 - Two-Factor Authentication (2FA)
@@ -16,7 +16,7 @@ The system combines traditional username/password login with an additional verif
 - CAPTCHA verification (planned)
 
 
-##Technologies Used
+## Technologies Used
 - ASP.NET Core MVC
 - C#
 - SQL Server

@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "2FA Kurulumu";
+}
+
+<div style="max-width:500px; margin:50px auto; text-align:center; border:1px solid #ddd; padding:30px; border-radius:10px;">
+    <h2>2FA Kurulumu</h2>
+
+    <p>Telefonunuzla QR kodu okutun:</p>
+
+    <div style="margin:20px 0;">
+        <img src="data:image/png;base64,@ViewBag.QR" alt="QR Kod" style="width:220px;height:220px;border:1px solid #ccc;padding:10px;" />
+    </div>
+
+    <p><b>Secret Key:</b></p>
+    <p>@ViewBag.Secret</p>
+
+    <hr />
+
+    <h3>Kodu Doğrula</h3>
+    <p>Authenticator uygulamasındaki 6 haneli kodu girin:</p>
+
+    <form method="post" action="/Auth/ConfirmSetup">
+        <input type="hidden" name="userName" value="@ViewBag.UserName" />
+        <input type="text" name="code" maxlength="6" placeholder="6 haneli kod" required style="padding:10px; width:180px;" />
+        <br /><br />
+        <button type="submit" style="padding:10px 20px;">Kurulumu Tamamla</button>
+    </form>
+
+    <p style="color:red; margin-top:15px;">@ViewBag.Message</p>
+</div>

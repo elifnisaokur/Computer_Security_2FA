@@ -1,0 +1,5 @@
+﻿@using Computer_Security_2FA
+@using Computer_Security_2FA.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+ViewBag.Secret = base32Secret;
+ViewBag.Message = "Bu kodu Google Authenticator'a ekleyin.";

@@ -1,0 +1,5 @@
+﻿USE SecurityDB;
+GO
+
+ALTER TABLE Users
+ADD Password NVARCHAR(MAX) NOT NULL DEFAULT '';

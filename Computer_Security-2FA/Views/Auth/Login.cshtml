@@ -1,0 +1,39 @@
+﻿@model Computer_Security_2FA.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Giriş Yap";
+}
+
+<div style="max-width:450px; margin:60px auto; padding:30px; border:1px solid #ddd; border-radius:10px; text-align:center;">
+    <h2>Giriş Yap</h2>
+
+    <form method="post" action="/Auth/Login">
+        <div style="margin-bottom:15px;">
+            <input asp-for="UserName" placeholder="Kullanıcı Adı" style="width:100%; padding:10px;" />
+            <span asp-validation-for="UserName" style="color:red;"></span>
+        </div>
+
+        <div style="margin-bottom:15px;">
+            <input asp-for="Password" type="password" placeholder="Şifre" style="width:100%; padding:10px;" />
+            <span asp-validation-for="Password" style="color:red;"></span>
+        </div>
+
+        <div style="margin-bottom:15px;">
+            <input asp-for="Code" placeholder="6 haneli kod" maxlength="6" style="width:100%; padding:10px;" />
+            <span asp-validation-for="Code" style="color:red;"></span>
+        </div>
+
+        <div style="display:flex; gap:10px; justify-content:center;">
+            <button type="submit" style="padding:10px 20px;">Giriş Yap</button>
+            <a href="/Auth/Register" style="padding:10px 20px; border:1px solid #999; text-decoration:none;">Yeni Kayıt</a>
+        </div>
+    </form>
+
+    <p style="color:red; margin-top:15px;">@ViewBag.Message</p>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

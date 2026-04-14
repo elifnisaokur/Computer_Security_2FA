@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Hoş Geldiniz";
+}
+
+<div style="max-width:500px; margin:60px auto; text-align:center; padding:30px; border:1px solid #ddd; border-radius:10px;">
+    <h2>Hoş geldiniz, @ViewBag.UserName</h2>
+    <p>Giriş başarılı.</p>
+
+    <div style="margin-top:20px;">
+        <a href="/Auth/Logout" style="padding:10px 20px; border:1px solid #999; text-decoration:none;">
+            Çıkış Yap
+        </a>
+    </div>
+</div>

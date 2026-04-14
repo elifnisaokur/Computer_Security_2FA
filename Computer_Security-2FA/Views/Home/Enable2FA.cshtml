@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "2FA Kurulumu";
+}
+
+<div class="container" style="max-width: 500px; margin: 50px auto; text-align:center; font-family:Arial, sans-serif;">
+    <h2 style="margin-bottom:20px;">İki Faktörlü Kimlik Doğrulama (2FA)</h2>
+
+    <p>Telefonunuzla QR kodu okutun veya secret'ı manuel girin:</p>
+
+    <div style="margin:20px 0;">
+        <img src="data:image/png;base64,@ViewBag.QR" alt="QR Kod" style="width:200px;height:200px;border:1px solid #ccc;padding:10px;" />
+    </div>
+
+    <p><b>Secret (manuel giriş için):</b></p>
+    <p style="font-size:18px;color:#555;">@ViewBag.Secret</p>
+
+    <hr style="margin:30px 0;" />
+
+    <h3>Kod Doğrulama</h3>
+    <p>Google Authenticator uygulamasındaki 6 haneli kodu girin:</p>
+
+    <form method="post" action="/Home/Verify2FA" style="margin-top:15px;">
+        <input type="text" name="code" placeholder="6 haneli kod" maxlength="6" required
+               style="width:150px;padding:8px;margin-right:10px;text-align:center;font-size:16px;" />
+        <button type="submit" style="padding:8px 15px;font-size:16px;background-color:#007bff;color:white;border:none;border-radius:5px;">
+            Doğrula
+        </button>
+    </form>
+</div>

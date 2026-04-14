@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "2FA Doğrulama";
+}
+
+<div class="text-center" style="margin-top:50px;">
+    <h2>2FA Doğrulama</h2>
+
+    <form method="post" action="/Home/Verify2FA">
+        <input type="text" name="code" placeholder="6 haneli kodu gir" maxlength="6" required />
+        <button type="submit">Doğrula</button>
+    </form>
+
+    <p style="margin-top:20px; font-weight:bold;">@ViewBag.Message</p>
+</div>

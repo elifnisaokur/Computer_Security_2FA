@@ -1,0 +1,53 @@
+﻿@model Computer_Security_2FA.Models.Verify2FAViewModel
+
+@{
+    ViewData["Title"] = "Two-Factor Verification";
+}
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-lg border-0 rounded-4 p-4" style="max-width: 450px; width: 100%;">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold mb-2">Two-Factor Authentication</h2>
+            <p class="text-muted mb-0">
+                Enter the 6-digit code from your authenticator app
+            </p>
+        </div>
+
+        @if (ViewBag.Message != null)
+        {
+            <div class="alert alert-danger text-center" role="alert">
+                @ViewBag.Message
+            </div>
+        }
+
+        <form asp-action="Verify2FA" method="post">
+            <input asp-for="UserName" type="hidden" />
+            <input asp-for="RememberDevice" type="hidden" />
+
+            <div class="mb-3">
+                <label asp-for="Code" class="form-label fw-semibold">Authentication Code</label>
+                <input asp-for="Code"
+                       class="form-control form-control-lg text-center rounded-3 fw-bold"
+                       placeholder="123456"
+                       maxlength="6"
+                       style="letter-spacing: 0.4rem; font-size: 1.4rem;"
+                       autocomplete="one-time-code" />
+                <span asp-validation-for="Code" class="text-danger small"></span>
+            </div>
+
+            <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-success btn-lg rounded-3">
+                    Verify Code
+                </button>
+            </div>
+
+            <div class="text-center">
+                <a asp-action="Login" class="text-decoration-none">Back to Login</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,14 +1,44 @@
-﻿@{
-    ViewData["Title"] = "Hoş Geldiniz";
+﻿@model Computer_Security_2FA.Models.UserLogsViewModel
+
+<h2>Welcome</h2>
+
+<p>Hoş geldin, <strong>@Model.UserName</strong></p>
+
+<p>
+    <a asp-action="Logout">Logout</a>
+</p>
+
+<h3>Son Giriş Kayıtları</h3>
+
+@if (Model.Logs == null || !Model.Logs.Any())
+{
+    <p>Henüz log kaydı bulunmuyor.</p>
 }
-
-<div style="max-width:500px; margin:60px auto; text-align:center; padding:30px; border:1px solid #ddd; border-radius:10px;">
-    <h2>Hoş geldiniz, @ViewBag.UserName</h2>
-    <p>Giriş başarılı.</p>
-
-    <div style="margin-top:20px;">
-        <a href="/Auth/Logout" style="padding:10px 20px; border:1px solid #999; text-decoration:none;">
-            Çıkış Yap
-        </a>
-    </div>
-</div>
+else
+{
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Zaman (UTC)</th>
+                <th>Durum</th>
+                <th>Olay Tipi</th>
+                <th>Hata Nedeni</th>
+                <th>IP Adresi</th>
+                <th>Remember Device</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var log in Model.Logs)
+            {
+                <tr>
+                    <td>@log.AttemptTimeUtc</td>
+                    <td>@(log.IsSuccess ? "Başarılı" : "Başarısız")</td>
+                    <td>@log.EventType</td>
+                    <td>@log.FailureReason</td>
+                    <td>@log.IpAddress</td>
+                    <td>@(log.RememberDeviceUsed ? "Evet" : "Hayır")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -10,5 +10,6 @@ namespace Computer_Security_2FA.Models
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<LoginLog> LoginLogs { get; set; }
     }
 }

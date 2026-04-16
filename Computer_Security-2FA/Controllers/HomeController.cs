@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using OtpNet;
 using QRCoder;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Computer_Security_2FA.Controllers
 {
@@ -31,7 +32,7 @@ namespace Computer_Security_2FA.Controllers
         {
             var user = _context.Users.FirstOrDefault(u => u.UserName == "testuser");
             if (user == null)
-                return Content("Kullanıcı bulunamadı!");
+                return Content("User not found!");
 
             if (string.IsNullOrEmpty(user.TwoFactorSecret))
             {
@@ -74,20 +75,20 @@ namespace Computer_Security_2FA.Controllers
             var user = _context.Users.FirstOrDefault(u => u.UserName == "testuser");
             if (user == null)
             {
-                ViewBag.Message = "Kullanıcı bulunamadı!";
+                ViewBag.Message = "User not found!";
                 return View();
             }
 
             if (string.IsNullOrEmpty(user.TwoFactorSecret))
             {
-                ViewBag.Message = "2FA aktif değil!";
+                ViewBag.Message = "2FA is not active!";
                 return View();
             }
 
             var totp = new Totp(Base32Encoding.ToBytes(user.TwoFactorSecret));
             bool isValid = totp.VerifyTotp(code, out long timeStepMatched, new VerificationWindow(2, 2));
 
-            ViewBag.Message = isValid ? "Kod doğru!" : "Kod yanlış!";
+            ViewBag.Message = isValid ? "The code is correct!" : "The code is wrong!";
             return View();
         }
 

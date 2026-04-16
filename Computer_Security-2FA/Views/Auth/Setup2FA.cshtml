@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "2FA Kurulumu";
+    ViewData["Title"] = "2FA Setup";
 }
 
 <div style="max-width:500px; margin:50px auto; text-align:center; border:1px solid #ddd; padding:30px; border-radius:10px;">
@@ -16,14 +16,14 @@
 
     <hr />
 
-    <h3>Kodu Doğrula</h3>
-    <p>Authenticator uygulamasındaki 6 haneli kodu girin:</p>
+    <h3>Verify Code</h3>
+    <p>Enter the 6-digit code in the Authenticator app:</p>
 
     <form method="post" action="/Auth/ConfirmSetup">
         <input type="hidden" name="userName" value="@ViewBag.UserName" />
-        <input type="text" name="code" maxlength="6" placeholder="6 haneli kod" required style="padding:10px; width:180px;" />
+        <input type="text" name="code" maxlength="6" placeholder="6-digit code" required style="padding:10px; width:180px;" />
         <br /><br />
-        <button type="submit" style="padding:10px 20px;">Kurulumu Tamamla</button>
+        <button type="submit" style="padding:10px 20px;">Complete Installation</button>
     </form>
 
     <p style="color:red; margin-top:15px;">@ViewBag.Message</p>

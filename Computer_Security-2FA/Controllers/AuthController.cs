@@ -56,7 +56,7 @@ namespace Computer_Security_2FA.Controllers
                     failureReason: "User not found",
                     rememberDeviceUsed: false);
 
-                ViewBag.Message = "Kullanıcı adı veya şifre yanlış!";
+                ViewBag.Message = "Incorrect username or password!";
                 return View(model);
             }
 
@@ -70,7 +70,7 @@ namespace Computer_Security_2FA.Controllers
                     $"Locked until {user.LockoutEndUtc:O}",
                     false);
 
-                ViewBag.Message = $"Çok fazla başarısız deneme. Lütfen {user.LockoutEndUtc.Value.ToLocalTime()} sonrasını bekleyin.";
+                ViewBag.Message = $"Too many failed attempts. Please wait after{user.LockoutEndUtc.Value.ToLocalTime()}. ";
                 return View(model);
             }
 
@@ -96,7 +96,7 @@ namespace Computer_Security_2FA.Controllers
                     "Wrong password",
                     false);
 
-                ViewBag.Message = "Kullanıcı adı veya şifre yanlış!";
+                ViewBag.Message = "Incorrect username or password!";
                 return View(model);
             }
 
@@ -166,13 +166,13 @@ namespace Computer_Security_2FA.Controllers
 
             if (user == null)
             {
-                ViewBag.Message = "Kullanıcı bulunamadı.";
+                ViewBag.Message = "User not found.";
                 return RedirectToAction("Login");
             }
 
             if (string.IsNullOrEmpty(user.TwoFactorSecret))
             {
-                ViewBag.Message = "Bu kullanıcı için 2FA kurulumu yapılmamış.";
+                ViewBag.Message = "2FA is not set up for this user.";
                 return RedirectToAction("Login");
             }
 
@@ -189,7 +189,7 @@ namespace Computer_Security_2FA.Controllers
                     "Wrong TOTP code",
                     false);
 
-                ViewBag.Message = "Doğrulama kodu yanlış!";
+                ViewBag.Message = "The verification code is incorrect!";
                 return View(model);
             }
 
@@ -230,7 +230,7 @@ namespace Computer_Security_2FA.Controllers
             bool userExists = _context.Users.Any(u => u.UserName == model.UserName);
             if (userExists)
             {
-                ViewBag.Message = "Bu kullanıcı adı zaten kayıtlı.";
+                ViewBag.Message = "This username is already registered.";
                 return View(model);
             }
 
@@ -270,10 +270,10 @@ namespace Computer_Security_2FA.Controllers
             var user = _context.Users.FirstOrDefault(u => u.UserName == userName);
 
             if (user == null)
-                return Content("Kullanıcı bulunamadı.");
+                return Content("User not found.");
 
             if (string.IsNullOrEmpty(user.TwoFactorSecret))
-                return Content("2FA secret bulunamadı.");
+                return Content("2FA secret not found.");
 
             var totp = new Totp(Base32Encoding.ToBytes(user.TwoFactorSecret));
             bool isValid = totp.VerifyTotp(code, out _, new VerificationWindow(2, 2));
@@ -291,7 +291,7 @@ namespace Computer_Security_2FA.Controllers
                 ViewBag.QR = base64Qr;
                 ViewBag.Secret = user.TwoFactorSecret;
                 ViewBag.UserName = user.UserName;
-                ViewBag.Message = "Kod yanlış. Lütfen tekrar deneyin.";
+                ViewBag.Message = "The code is incorrect. Please try again.";
 
                 return View("Setup2FA");
             }

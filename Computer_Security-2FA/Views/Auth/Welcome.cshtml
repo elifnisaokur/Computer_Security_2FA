@@ -2,28 +2,28 @@
 
 <h2>Welcome</h2>
 
-<p>Hoş geldin, <strong>@Model.UserName</strong></p>
+<p>Welcome, <strong>@Model.UserName</strong></p>
 
 <p>
     <a asp-action="Logout">Logout</a>
 </p>
 
-<h3>Son Giriş Kayıtları</h3>
+<h3>Last Login Records</h3>
 
 @if (Model.Logs == null || !Model.Logs.Any())
 {
-    <p>Henüz log kaydı bulunmuyor.</p>
+    <p>No log records yet.</p>
 }
 else
 {
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
             <tr>
-                <th>Zaman (UTC)</th>
-                <th>Durum</th>
-                <th>Olay Tipi</th>
-                <th>Hata Nedeni</th>
-                <th>IP Adresi</th>
+                <th>Time (UTC)</th>
+                <th>Situation</th>
+                <th>Event Type</th>
+                <th>Reason for Error</th>
+                <th>IP Address</th>
                 <th>Remember Device</th>
             </tr>
         </thead>
@@ -32,11 +32,11 @@ else
             {
                 <tr>
                     <td>@log.AttemptTimeUtc</td>
-                    <td>@(log.IsSuccess ? "Başarılı" : "Başarısız")</td>
+                    <td>@(log.IsSuccess ? "Successful" : "Unsuccessful")</td>
                     <td>@log.EventType</td>
                     <td>@log.FailureReason</td>
                     <td>@log.IpAddress</td>
-                    <td>@(log.RememberDeviceUsed ? "Evet" : "Hayır")</td>
+                    <td>@(log.RememberDeviceUsed ? "Yes" : "No")</td>
                 </tr>
             }
         </tbody>
